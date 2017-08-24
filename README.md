@@ -1,9 +1,14 @@
 # respiratory-complex-I
 
-Bash scripts for calculating the reduction potential of respiratory complex I.
+Bash scripts for calculating the reduction potential (E0) of respiratory complex I.
 
-* apbs_pdb_builder.sh builds PDBs for continuum electrostatic energy calculations using the APBS program.
+* DGout_calculator.sh reads the solvation free energy from APBS and outputs the DGout and E0.
 
-* DGout_calculator.sh reads in the solvation free energy from APBS and outputs the DGout and reduction potential (E0).
+* E0_calculator.sh reads the solvation free energy from APBS and outputs the E0 profile.
 
-* E0_calculator.sh reads in the solvation free energy from APBS and outputs the reduction potential (E0) profile.
+* aNQ2_calculator.sh reads the solvation free energy from APBS and outputs the E0 as function of salt concentration for a[2Fe-2S] in the Nqo2 subunit.
+
+* apbs_pdb_builder_iso.sh builds PDBs of the isolated subunit for continuum electrostatic energy calculations using the APBS program.
+
+* apbs_pdb_builder_peri.sh builds PDBs of the peripheral domain for continuum electrostatic energy calculations using the APBS program.
+
