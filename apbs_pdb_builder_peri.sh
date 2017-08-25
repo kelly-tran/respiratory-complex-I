@@ -25,13 +25,26 @@ printf "\nInput file: ${infile}\n"
 printf "\nMolecule: ${mol}\n"
 printf "\nMolecule in the ASU: ${molASU}\n"
 
-printf "\n    a1NQ2    21NQ3    40NQ3     5NQ9"
-printf "\n    a2NQ2    22NQ3    4-NQ3     6NQ9"
-printf "\n     1NQ1     3NQ3     bNQ3     7NQ6"
-printf "\nPreparing PDBs for all cofactors... "
+printf "\n------------------------------------------"
+printf "\n|    a1NQ2    21NQ3    40NQ3     5NQ9    |"
+printf "\n|    a2NQ2    22NQ3    4-NQ3     6NQ9    |"
+printf "\n|     1NQ1     3NQ3     bNQ3     7NQ6    |"
+printf "\n------------------------------------------"
+printf "\nSelect an Fe-S cofactor "
+printf "\n    OR separate multiple cofactors with a space "
+printf "\n    OR type 'ALL' to prepare PDBs for all cofactors."
+printf "\nEnter your selection: "
+read selection
 
-for cofactor in a1NQ2 a2NQ2 1NQ1 21NQ3 22NQ3 3NQ3 \
-                40NQ3 4-NQ3 bNQ3 5NQ9 6NQ9 7NQ6 ; do
+if [ "$selection" == "ALL" ]; then
+    cofactors="a1NQ2 a2NQ2 1NQ1 21NQ3 22NQ3 3NQ3 40NQ3 4-NQ3 bNQ3 5NQ9 6NQ9 7NQ6"
+else
+    cofactors=$selection
+fi
+
+printf "\nPreparing PDBs for: %s" "$cofactors"
+
+for cofactor in $cofactors ; do
 
     segID_ref="${cofactor}${molASU}"
     

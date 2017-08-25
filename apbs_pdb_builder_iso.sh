@@ -1,30 +1,34 @@
 #!/bin/bash
 
-# ===========================================================================
+# ========================================================================================
 # Filename: apbs_pdb_builder_iso.sh
 # Author: Kelly Tran
-# Purpose: This bash script builds PDBs for calculating the reduction 
-#     potential (E0) of the Fe-S cofactors in respiratory complex I 
-#     using the DFT+PB method.
+# Purpose: This bash script builds PDBs for calculating the reduction potential (E0) 
+#     for the Fe-S cofactors in respiratory complex I using the DFT+PB method.
 #
-#     The script reads in 4HEA.pdb after missing residues and hydrogen 
-#     coordinates have been built and prepares APBS-formatted PDBs 
-#     in the isolated subunit. 
-#     Script requires 4hea#-refo.pdb, 4hea#-refr.pdb, and 4hea#-heto.pdb 
-#     in the same directory to append FeS and FMN cofactors.
-# ===========================================================================
+#     The script reads in 4HEA.pdb after missing residues and hydrogen coordinates
+#     have been built and prepares APBS-formatted PDBs in the isolated subunit. 
+#     Script requires 4hea#-refo.pdb, 4hea#-refr.pdb, and 4hea#-heto.pdb in the same
+#     directory to append FeS and FMN cofactors.
+# ========================================================================================
 
 # Ask for user input
-printf "\nEnter the full input filename [ex. 4heaa_pro_hbuild_hsd.pdb]: "
+printf "\nEnter the full hbuild pdb filename: "
 read infile
-printf "\nInput file: ${infile}\n"
+
+# Read in 4HEA.pdb after the missing residues
+# and hydrogen coordinates have been built
+# infile="*_hbuild_*.pdb"
+# printf "\nInput file: ${infile}\n"
 
 printf "\nWhich molecule in the ASU? [A or B]: "
 read molASU
 
-printf "\n    a1NQ2    21NQ3    40NQ3     5NQ9"
-printf "\n    a2NQ2    22NQ3    4-NQ3     6NQ9"
-printf "\n     1NQ1     3NQ3     bNQ3     7NQ6"
+printf "\n------------------------------------------"
+printf "\n|    a1NQ2    21NQ3    40NQ3     5NQ9    |"
+printf "\n|    a2NQ2    22NQ3    4-NQ3     6NQ9    |"
+printf "\n|     1NQ1     3NQ3     bNQ3     7NQ6    |"
+printf "\n------------------------------------------"
 printf "\nSelect an Fe-S cofactor: "
 read segID_ref
 segID_ref="${segID_ref}${molASU}"
@@ -123,25 +127,26 @@ sed -i -e '/CB  HSD   115.*NQ3/,+10d' $out
 # Append non-reference co-factors in the oxidized state 
 # while excluding the reference cofactor (for all charge states)
 segid_ref2="${segID_ref:0:1}.${segID_pro}"
-grep $segID_pro *-heto.pdb | grep -Ev "$segID_ref|$segid_ref2" >> $out
+grep $segID_pro *${molASU}-heto.pdb | grep -Ev "$segID_ref|$segid_ref2" >> $out
 
 # Write PDBs in the oxidized and reference charge states
 # for the protein and reference cofactor
 proo="${segID_ref}_proo.pdb"
 cp $out $proo
 printf "\n Writing ${segID_ref}_proo.pdb"
-grep $segID_ref *-refo.pdb >> $proo
+grep $segID_ref *${molASU}-refo.pdb >> $proo
 
 pror="${segID_ref}_pror.pdb"
 cp $out $pror
 printf "\n Writing ${segID_ref}_pror.pdb"
-grep $segID_ref *-refr.pdb >> $pror
+grep $segID_ref *${molASU}-refr.pdb >> $pror
 
 refo="${segID_ref}_refo.pdb"
 printf "\n Writing ${segID_ref}_refo.pdb"
-grep $segID_ref *-refo.pdb > $refo
+grep $segID_ref *${molASU}-refo.pdb > $refo
 
 refr="${segID_ref}_refr.pdb"
 printf "\n Writing ${segID_ref}_refr.pdb\n"
-grep $segID_ref *-refr.pdb > $refr
+grep $segID_ref *${molASU}-refr.pdb > $refr
+
 
