@@ -1,14 +1,17 @@
 # respiratory-complex-I
 
-Bash scripts for calculating the reduction potential (E0) of respiratory complex I.
+Respiratory complex I is a multi-subunit protein complex with nine Fe-S clusters. The following bash scripts are used to characterize the reduction potentials (E0) of the Fe-S clusters using computational methods.
 
-* DGout_calculator.sh reads the solvation free energy from APBS and outputs the DGout and E0.
+First, the PDB crystal structure is prepared for the APBS continuum electrostatic energy calculations. Calculations can be performed for the Fe-S cluster in the peripheral hydrophilic domain (nine subunits) or the isolated subunit.
 
-* E0_calculator.sh reads the solvation free energy from APBS and outputs the E0 profile.
+* apbs_pdb_builder_iso.sh builds PDBs of the isolated subunit
 
-* aNQ2_calculator.sh reads the solvation free energy from APBS and outputs the E0 as function of salt concentration for a[2Fe-2S] in the Nqo2 subunit.
+* apbs_pdb_builder_peri.sh builds PDBs of the hydrophilic peripheral domain
 
-* apbs_pdb_builder_iso.sh builds PDBs of the isolated subunit for continuum electrostatic energy calculations using the APBS program.
+Next, the solvation free energies are read from the APBS output. The E0 is calculated and written to a data file for plotting.
 
-* apbs_pdb_builder_peri.sh builds PDBs of the peripheral domain for continuum electrostatic energy calculations using the APBS program.
+* DGout_calculator.sh calculates the DGout and E0
 
+* E0_calculator.sh calculates the E0
+
+* aNQ2_calculator.sh calculates the E0 as function of salt concentration for a[2Fe-2S] in the Nqo2 subunit
