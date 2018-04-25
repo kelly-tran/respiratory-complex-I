@@ -2,7 +2,7 @@
 
 Respiratory complex I is a multi-subunit protein complex with nine Fe-S clusters. The following bash scripts are used to characterize the reduction potentials (E0) of the Fe-S clusters using computational methods.
 
-First, the PDB crystal structure is prepared for the APBS continuum electrostatic energy calculations. Calculations can be performed for the Fe-S cluster in the peripheral hydrophilic domain (nine subunits) or the isolated subunit.
+First, the PDB crystal structure is prepared for the APBS continuum electrostatic energy calculations. Calculations can be performed for the Fe-S cluster in the peripheral hydrophilic domain (nine subunits) or the isolated subunit (one subunit).
 
 * apbs_pdb_builder_iso.sh builds PDBs of the isolated subunit
 
